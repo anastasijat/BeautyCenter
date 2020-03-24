@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,13 +51,58 @@ namespace BeautyCenter.Controllers
                 isAuthenticated = true;
                 //return RedirectToAction("Index", "Home");
             }
-             
             
-            if(isAuthenticated)
+            if(appContext.Vraboteni.Any(v=>v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password)))
+            {
+                identity = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Name,userName),
+                        new Claim(ClaimTypes.Name,password),
+                        new Claim(ClaimTypes.Role,"Vraboteni")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var principal = new ClaimsPrincipal(identity);
+                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                isAuthenticated = true;
+            }
+
+            if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Menadzer.Any(m=>m.IdVrabotenMenadzer.Equals(v.IdVraboten))))
+            {
+                identity = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Name,userName),
+                        new Claim(ClaimTypes.Name,password),
+                        new Claim(ClaimTypes.Role,"Menadzer")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var principal = new ClaimsPrincipal(identity);
+                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                isAuthenticated = true;
+            }
+
+            if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Direktor.Any(d => d.IdVrabotenDirektor.Equals(v.IdVraboten))))
+            {
+                identity = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Name,userName),
+                        new Claim(ClaimTypes.Name,password),
+                        new Claim(ClaimTypes.Role,"Direktor")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var principal = new ClaimsPrincipal(identity);
+                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                isAuthenticated = true;
+            }
+
+
+            if (isAuthenticated)
             {
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Profil");
             }
             return View();
             
