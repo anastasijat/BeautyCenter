@@ -18,6 +18,7 @@ namespace BeautyCenter.Controllers
 
         public IActionResult Index()
         { 
+            
             return View(appContext.Uslugi.ToList().GroupBy(u=>u.ImeUsluga).Select(grp=>grp.First()));
         }
 

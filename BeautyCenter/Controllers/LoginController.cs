@@ -41,7 +41,7 @@ namespace BeautyCenter.Controllers
                     new[]
                     {
                             new Claim(ClaimTypes.Name,userName),
-                            new Claim(ClaimTypes.Name,password),
+                            //new Claim(ClaimTypes.Name,password),
                             new Claim(ClaimTypes.Role,"Klienti")
                         //new Claim(ClaimTypes.Role,"Klienti")
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -58,7 +58,7 @@ namespace BeautyCenter.Controllers
                     new[]
                     {
                         new Claim(ClaimTypes.Name,userName),
-                        new Claim(ClaimTypes.Name,password),
+                        //new Claim(ClaimTypes.Name,password),
                         new Claim(ClaimTypes.Role,"Vraboteni")
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -73,7 +73,7 @@ namespace BeautyCenter.Controllers
                     new[]
                     {
                         new Claim(ClaimTypes.Name,userName),
-                        new Claim(ClaimTypes.Name,password),
+                        //new Claim(ClaimTypes.Name,password),
                         new Claim(ClaimTypes.Role,"Menadzer")
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -88,7 +88,7 @@ namespace BeautyCenter.Controllers
                     new[]
                     {
                         new Claim(ClaimTypes.Name,userName),
-                        new Claim(ClaimTypes.Name,password),
+                        //new Claim(ClaimTypes.Name,password),
                         new Claim(ClaimTypes.Role,"Direktor")
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -102,7 +102,7 @@ namespace BeautyCenter.Controllers
             {
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                return RedirectToAction("Index", "Profil");
+                return RedirectToAction("Index", "Klient");
             }
             return View();
             
