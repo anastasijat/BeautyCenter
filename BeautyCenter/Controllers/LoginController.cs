@@ -34,7 +34,7 @@ namespace BeautyCenter.Controllers
         {
 
             ClaimsIdentity identity = null;
-            bool isAuthenticated = false;
+            //bool isAuthenticated = false;
             if (appContext.Klienti.Any(k => k.EmailKlient.Equals(userName) && k.PasswordKlient.Equals(password)))//&& password == "#miha12")
             {
                 identity = new ClaimsIdentity(
@@ -48,38 +48,10 @@ namespace BeautyCenter.Controllers
 
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                isAuthenticated = true;
-                //return RedirectToAction("Index", "Home");
-            }
-            
-            if(appContext.Vraboteni.Any(v=>v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password)))
-            {
-                identity = new ClaimsIdentity(
-                    new[]
-                    {
-                        new Claim(ClaimTypes.Name,userName),
-                        //new Claim(ClaimTypes.Name,password),
-                        new Claim(ClaimTypes.Role,"Vraboteni")
-                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+                //isAuthenticated = true;
 
-                var principal = new ClaimsPrincipal(identity);
-                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                isAuthenticated = true;
-            }
+                return RedirectToAction("Index", "Klient");
 
-            if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Menadzer.Any(m=>m.IdVrabotenMenadzer.Equals(v.IdVraboten))))
-            {
-                identity = new ClaimsIdentity(
-                    new[]
-                    {
-                        new Claim(ClaimTypes.Name,userName),
-                        //new Claim(ClaimTypes.Name,password),
-                        new Claim(ClaimTypes.Role,"Menadzer")
-                    }, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var principal = new ClaimsPrincipal(identity);
-                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                isAuthenticated = true;
             }
 
             if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Direktor.Any(d => d.IdVrabotenDirektor.Equals(v.IdVraboten))))
@@ -94,16 +66,42 @@ namespace BeautyCenter.Controllers
 
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                isAuthenticated = true;
+                return RedirectToAction("Index", "Direktor");
             }
 
-
-            if (isAuthenticated)
+            if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Menadzer.Any(m => m.IdVrabotenMenadzer.Equals(v.IdVraboten))))
             {
+                identity = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Name,userName),
+                        //new Claim(ClaimTypes.Name,password),
+                        new Claim(ClaimTypes.Role,"Menadzer")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                return RedirectToAction("Index", "Klient");
+                //isAuthenticated = true;
+                return RedirectToAction("Index", "Menadzer");
             }
+
+            if (appContext.Vraboteni.Any(v=>v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password)))
+            {
+                identity = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.Name,userName),
+                        //new Claim(ClaimTypes.Name,password),
+                        new Claim(ClaimTypes.Role,"Vraboteni")
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var principal = new ClaimsPrincipal(identity);
+                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                //isAuthenticated = true;
+                return RedirectToAction("Index", "Menadzer");
+            }
+
+     
             return View();
             
 

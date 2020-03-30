@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BeautyCenter.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 //using Microsoft.EntityFrameworkCore.Internal;
 
 namespace BeautyCenter.Controllers
@@ -31,20 +32,17 @@ namespace BeautyCenter.Controllers
             return RedirectToAction("LoginUser", "Login");
         }
 
-        public IActionResult OmileniUslugi()
+     
+        public async Task<IActionResult> OmileniUslugi()
         {
-            //var user = appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name));
-            var omileni = appContext.Omileni.Where(o => o.IdKlientNavigation.EmailKlient.Equals(User.Identity.Name));
-            //omileni.ToList();
-            //var omileniUslugi = appContext.Uslugi.Where(u => u.Omileni.Equals(omileni));
-         
-            foreach(Omileni o in omileni)
-            {
-                foreach(Uslugi)
-            }
-
-            //return View(omileniUslugi.ToList());
+            var viewModel = new OmileniViewModel();
+            viewModel.Omilenis = await appContext.Omileni
+                .Include(o => o.IdUslugaNavigation)
+                .Where(o => o.IdKlientNavigation.EmailKlient.Equals(User.Identity.Name)).ToListAsync();
+            return View(viewModel);
         }
+
+        
        
     }
 }

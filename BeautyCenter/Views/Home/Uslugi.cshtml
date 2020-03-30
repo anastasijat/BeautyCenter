@@ -1,0 +1,20 @@
+﻿@model BeautyCenter.Models.UslugiHomeViewModel
+
+<table>
+
+    @foreach(var item in Model.Oddelis)
+    {
+        <tr>
+            <b>@item.ImeOddel</b>
+        </tr>
+        @if(item.Uslugi!=null)
+        {
+            @foreach(var u in item.Uslugi)
+            {
+                <tr>
+                    <td>@u.ImeUsluga</td>
+                </tr>
+            }
+        }
+    }
+</table>

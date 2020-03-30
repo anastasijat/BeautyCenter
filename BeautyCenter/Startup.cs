@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using BeautyCenter.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BeautyCenter
 {
@@ -30,8 +31,11 @@ namespace BeautyCenter
             services.AddControllersWithViews();
             //
             //DOPOLNUVAM
-            
-            
+
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             var connection = @"Host=localhost; Database=db_201920z_va_prj_beauty_centar; Username=db_201920z_va_prj_beauty_centar_owner; Password=beauty_centar; Port=9999";
             services.AddDbContext<db_201920z_va_prj_beauty_centarContext>(options => options.UseNpgsql(connection));
 

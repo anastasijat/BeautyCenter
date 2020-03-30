@@ -1,15 +1,19 @@
-﻿@model ICollection<BeautyCenter.Models.Uslugi>
+﻿@model BeautyCenter.Models.OmileniViewModel
 
-@{
-    Layout = "~/Views/Shared/ProfilKlient.cshtml";
-}
+<h2>Омилени услуги</h2>
+<table class="table">
 
+    @foreach(var item in Model.Omilenis)
+    {
+        <tr>
+            <td>
+               
+                @if(item.IdUslugaNavigation!=null)
+                {
+                    @item.IdUslugaNavigation.ImeUsluga
+                }
 
-
-@foreach (var item in Model)
-{
-    <tr>
-        <td>@Html.DisplayFor(modelItem=>item.ImeUsluga)</td>
-        
-    </tr>
-}
+            </td>
+        </tr>
+    }
+</table>
