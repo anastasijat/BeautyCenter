@@ -1,22 +1,32 @@
-﻿@model BeautyCenter.Models.OmileniViewModel
-
-@{
+﻿@{
     Layout = "~/Views/Shared/ProfilKlient.cshtml";
 }
-<h2>Омилени услуги</h2>
+@model IEnumerable<BeautyCenter.Models.Omileni>
+
+<h2>Мои омилени услуги</h2>
 <table class="table">
-
-    @foreach (var item in Model.Omilenis)
-    {
+    <thead>
         <tr>
-            <td>
-
-                @if (item.IdUslugaNavigation != null)
-                {
-                    @item.IdUslugaNavigation.ImeUsluga
-                }
-
-            </td>
+            <th>Услуга</th>
+            <th>Оддел</th>
+            <th>Салон</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                        @item.IdUslugaNavigation.ImeUsluga
+                </td>
+                <td>
+                        @item.IdUslugaNavigation.IdOddelNavigation.ImeOddel
+                </td>
+                <td>
+                        @item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation.ImeSalon
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+

@@ -98,7 +98,7 @@ namespace BeautyCenter.Controllers
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
                 //isAuthenticated = true;
-                return RedirectToAction("Index", "Menadzer");
+                return RedirectToAction("Index", "Vraboten");
             }
 
      
@@ -107,6 +107,11 @@ namespace BeautyCenter.Controllers
 
         }
 
-        
+        public IActionResult Logout()
+        {
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("LoginUser", "Login");
+        }
+
     }
 }

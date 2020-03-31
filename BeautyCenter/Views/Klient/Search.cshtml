@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BeautyCenter.Models.Saloni>
+@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
+
+<h2>Салони</h2>
+<br />
+<form asp-controller="Klient" asp-action="Search" method="get">
+    <p>
+        <input type="text" name="SearchString" />
+        <input type="submit" value="Барај" />
+    </p>
+</form>
+<table class="table">
+    <tr>
+        <th>Име</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Klient" asp-action="Salon" asp-route-id="@item.IdSalon">@Html.DisplayFor(modelIdem => item.ImeSalon)</a>
+            </td>
+        </tr>
+    }
+</table>
