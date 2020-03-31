@@ -4,7 +4,7 @@
 }
 <h2>Салони</h2>
 <br />
-<form asp-controller="Saloni" asp-action="Search" method="get">
+<form asp-controller="Home" asp-action="Search" method="get">
     <p>
         <input type="text" name="SearchString" />
         <input type="submit" value="Барај" />
@@ -13,16 +13,12 @@
 <table class="table">
     <tr>
         <th>Име</th>
-        <th>Телефонски број</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                <a asp-controller="Saloni" asp-action="Salon" asp-route-id="@item.IdSalon">@Html.DisplayFor(modelIdem => item.ImeSalon)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelBrojSalon)
+                <a asp-controller="Home" asp-action="Salon" asp-route-id="@item.IdSalon">@Html.DisplayFor(modelIdem => item.ImeSalon)</a>
             </td>
         </tr>
     }

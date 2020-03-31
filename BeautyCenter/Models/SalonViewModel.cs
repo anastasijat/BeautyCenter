@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace BeautyCenter.Models
 {
-    public class UslugiHomeViewModel
+    public class SalonViewModel
     {
+        public Saloni Salon { get; set; }
         public IEnumerable<Oddeli> Oddelis { get; set; }
-        //public IEnumerable<Uslugi> Uslugis { get; set; }
+        public IEnumerable<Uslugi> Uslugis { get; set; }
     }
 }

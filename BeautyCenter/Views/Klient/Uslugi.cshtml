@@ -1,0 +1,23 @@
+﻿@model IEnumerable<BeautyCenter.Models.Uslugi>
+
+@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
+
+<h2>Услуги</h2>
+
+<table class="table">
+    <tr>
+        <th>Име на услугата</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <a asp-controller="Klient" asp-action="DodadiOmilena" asp-route-id="@item.IdUsluga">@Html.DisplayFor(modelItem => item.ImeUsluga)</a>
+            </td>
+        </tr>
+    }
+</table>

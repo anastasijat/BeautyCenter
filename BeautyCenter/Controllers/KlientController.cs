@@ -7,6 +7,7 @@ using BeautyCenter.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 //using Microsoft.EntityFrameworkCore.Internal;
 
 namespace BeautyCenter.Controllers
@@ -32,7 +33,8 @@ namespace BeautyCenter.Controllers
             return RedirectToAction("LoginUser", "Login");
         }
 
-     
+
+        [Authorize(Roles = "Klienti")]
         public async Task<IActionResult> OmileniUslugi()
         {
             var viewModel = new OmileniViewModel();
@@ -42,6 +44,32 @@ namespace BeautyCenter.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Uslugi()
+        {
+            return View(appContext.Uslugi.ToList().GroupBy(u => u.ImeUsluga).Select(grp => grp.First()));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Klienti")]
+        public IActionResult DodadiOmilena(int id)
+        {
+            
+                var omileniNew = new Omileni { IdKlient = ((BeautyCenter.Models.Klienti)appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name))).IdKlient, IdUsluga = id };
+
+            if (ModelState.IsValid)
+            {
+                appContext.Omileni.Add(omileniNew);
+                appContext.SaveChanges();
+                return RedirectToAction("Index", "Klient");
+            }
+
+            return View();
+            
+            
+            
+            
+        }
         
        
     }

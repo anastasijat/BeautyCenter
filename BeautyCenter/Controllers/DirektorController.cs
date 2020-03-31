@@ -21,5 +21,7 @@ namespace BeautyCenter.Controllers
         {
             return View();
         }
+
+        
     }
 }

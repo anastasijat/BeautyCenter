@@ -1,14 +1,17 @@
 ﻿@model BeautyCenter.Models.OmileniViewModel
 
+@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
 <h2>Омилени услуги</h2>
 <table class="table">
 
-    @foreach(var item in Model.Omilenis)
+    @foreach (var item in Model.Omilenis)
     {
         <tr>
             <td>
-               
-                @if(item.IdUslugaNavigation!=null)
+
+                @if (item.IdUslugaNavigation != null)
                 {
                     @item.IdUslugaNavigation.ImeUsluga
                 }

@@ -37,14 +37,14 @@ namespace BeautyCenter.Controllers
             //bool isAuthenticated = false;
             if (appContext.Klienti.Any(k => k.EmailKlient.Equals(userName) && k.PasswordKlient.Equals(password)))//&& password == "#miha12")
             {
+                
                 identity = new ClaimsIdentity(
                     new[]
                     {
                             new Claim(ClaimTypes.Name,userName),
-                            //new Claim(ClaimTypes.Name,password),
                             new Claim(ClaimTypes.Role,"Klienti")
-                        //new Claim(ClaimTypes.Role,"Klienti")
-                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+                       
+                    }, CookieAuthenticationDefaults.AuthenticationScheme); ;
 
                 var principal = new ClaimsPrincipal(identity);
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);

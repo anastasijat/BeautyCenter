@@ -1,0 +1,34 @@
+﻿@model BeautyCenter.Models.Saloni
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>@Model.ImeSalon</h2>
+
+<table class="table">
+
+    @if(Model.Oddeli!=null)
+    {
+        @foreach(var item in Model.Oddeli)
+        {
+            <tr>
+                <td>
+                    <b style="text-transform:uppercase">@item.ImeOddel</b>
+                </td>
+            </tr>
+            @if(item.Uslugi!=null)
+            {
+                @foreach(var u in item.Uslugi)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Home" asp-action="OpisUsluga" asp-route-id="@u.IdUsluga">@u.ImeUsluga</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    }
+
+</table>

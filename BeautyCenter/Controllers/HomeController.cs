@@ -28,8 +28,6 @@ namespace BeautyCenter.Controllers
             appContext = context;
         }
 
-
-        //[Authorize(Roles ="Klienti")]
         public IActionResult Index()
         {
             return View();
@@ -46,13 +44,48 @@ namespace BeautyCenter.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Uslugi()
-        {
-            var viewModel = new UslugiHomeViewModel();
-            viewModel.Oddelis = await appContext.Oddeli
-                .Include(o => o.Uslugi).ToListAsync();
+        //******
 
-            return View(viewModel);
+        public IActionResult Saloni()
+        {
+            var saloni = appContext.Saloni
+                .Include(s => s.IdOpshtinaNavigation).ToList();
+            return View(saloni);
         }
+        
+         public IActionResult Salon(int id)
+        {
+            //var salon = new HomeSalonViewModel();
+            var salon = appContext.Saloni
+                .Include(s=>s.Oddeli)
+                .ThenInclude(s=>s.Uslugi)
+                .Where(s => s.IdSalon == id).Single();
+            return View (salon);
+        }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var saloni = from s in appContext.Saloni select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                saloni = saloni.Where(ss => ss.ImeSalon.Contains(searchString));
+
+            }
+
+            return View(saloni.ToList());
+        }
+
+       
+
+        public IActionResult OpisUsluga(int id)
+        {
+            var usluga = appContext.Uslugi
+                .Include(u=>u.IdOddelNavigation)
+                .Where(u => u.IdUsluga == id)
+                .Single();
+            return View(usluga);
+        }
+        //*****
+        
     }
 }
