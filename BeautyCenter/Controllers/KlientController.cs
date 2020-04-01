@@ -65,6 +65,7 @@ namespace BeautyCenter.Controllers
         {
             var usluga = appContext.Uslugi
                 .Include(u => u.IdOddelNavigation)
+                .Include(u=>u.Termini)
                 .Where(u => u.IdUsluga == id)
                 .Single();
             return View(usluga);
@@ -90,24 +91,32 @@ namespace BeautyCenter.Controllers
 
 
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles ="Klienti")]
         public IActionResult DodadiOmilena(int id)
         {
             
-            var omileniNew = new Omileni { IdKlient = ((BeautyCenter.Models.Klienti)appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name))).IdKlient, IdUsluga = id };
-
-            
-                appContext.Omileni.Add(omileniNew);
-                appContext.SaveChanges();
-                return RedirectToAction("Index", "Klient");
-            
-            
-            
-            
+            var klient = appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name)).Single();
+            var omileniNew = new Omileni { IdKlient = klient.IdKlient, IdUsluga = id };
+            appContext.Omileni.Add(omileniNew);
+            appContext.SaveChanges();
+            return View(); 
+            // else da dopolnam !!!!
         }
         
+
+        public IActionResult Termini()
+        {
+            var termini = appContext.Termini
+                .Include(t=>t.IdUslugaNavigation)
+                .ThenInclude(t=>t.IdOddelNavigation)
+                .ThenInclude(t=>t.IdSalonNavigation)
+                .Where(t => t.IdKlientNavigation.EmailKlient.Equals(User.Identity.Name)).ToList();
+            return View(termini);
+        }
        
     }
 }

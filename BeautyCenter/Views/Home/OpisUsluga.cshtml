@@ -5,22 +5,28 @@
 
     
 
-    <form asp-action="DodadiOmilena"  asp-route-id="@Model.IdUsluga" method="post">
-        <fieldset>
-            <h3>@Model.ImeUsluga</h3>
-            <br />
-            <h4>Цена</h4>
-            <p>
-                @Model.CenaUsluga
-            </p>
-            <h4>Опис на услугата</h4>
-            <p>
-                @Model.OpisUsluga
-            </p>
-            <button type="submit" class="btn-secondary">Додади во омилени</button>
-        </fieldset>
-        
-    </form>
+<form asp-action="DodadiOmilena" method="post">
+    
+
+    <div>
+        <h3>@Model.ImeUsluga</h3>
+        <br />
+        <h4>Цена</h4>
+        <p>
+            @Model.CenaUsluga
+        </p>
+        <h4>Опис на услугата</h4>
+        <p>
+            @Model.OpisUsluga
+        </p>
+    </div>
+
+    
+        <button type="submit" class="btn btn-secondary">Додади во омилени</button>
+   
+
+
+</form>
 
 
 

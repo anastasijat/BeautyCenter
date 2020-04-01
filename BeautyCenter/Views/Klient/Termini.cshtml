@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BeautyCenter.Models.Termini>
+@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
+
+<h3>Искористени</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Име услуга
+                </th>
+                <th>
+                    Оддел
+                </th>
+                <th>
+                    Салон
+                </th>
+                <th>
+                    Датум
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+    <tr>
+        @if (item.Datum < DateTime.Now)
+        {
+            @if (item.IdUslugaNavigation != null)
+            {
+                <td>
+                    @item.IdUslugaNavigation.ImeUsluga
+                </td>
+            }
+            @if(item.IdUslugaNavigation.IdOddelNavigation!=null)
+            {
+                <td>
+                    @item.IdUslugaNavigation.IdOddelNavigation.ImeOddel
+                </td>
+            }
+            @if(item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation!=null)
+            {
+                <td>
+                    @item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation.ImeSalon
+                </td>
+            }
+            <td>
+                @item.Datum
+            </td>
+        }
+    </tr>
+        }
+    </table>

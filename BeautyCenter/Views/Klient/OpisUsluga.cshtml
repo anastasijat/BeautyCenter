@@ -14,3 +14,38 @@
 <p>
     @Model.OpisUsluga
 </p>
+
+
+<form asp-action="DodadiOmilena" asp-route-id="@Model.IdUsluga">
+    <button type="submit" class="btn btn-secondary">
+        Додади во омилени
+    </button>
+</form>
+
+<p>Коментари</p>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Коментар
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Termini != null)
+        {
+            @foreach (var t in Model.Termini)
+            {
+                <tr>
+                    
+                    <td>
+                       @t.Komentar
+                    </td>
+                    <br />
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

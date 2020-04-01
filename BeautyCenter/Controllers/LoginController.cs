@@ -56,6 +56,9 @@ namespace BeautyCenter.Controllers
 
             if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Direktor.Any(d => d.IdVrabotenDirektor.Equals(v.IdVraboten))))
             {
+                
+
+                
                 identity = new ClaimsIdentity(
                     new[]
                     {
@@ -71,6 +74,7 @@ namespace BeautyCenter.Controllers
 
             if (appContext.Vraboteni.Any(v => v.EmailVraboten.Equals(userName) && v.PasswordVraboten.Equals(password) && appContext.Menadzer.Any(m => m.IdVrabotenMenadzer.Equals(v.IdVraboten))))
             {
+
                 identity = new ClaimsIdentity(
                     new[]
                     {
