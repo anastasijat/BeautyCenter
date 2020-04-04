@@ -23,7 +23,21 @@
         </th>
         </thead>
         <tbody>
-           
+           @if(Model.Oddeli!=null)
+           {
+               @foreach(var item in Model.Oddeli)
+               {
+                   <tr>
+                       <td>
+                           @item.ImeOddel
+                       </td>
+                   </tr>
+               }
+           }
+           @if(Model.IdVrabotenMenadzerNavigation!=null)
+           {
+               
+           }
 
         </tbody>
 

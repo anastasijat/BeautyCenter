@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
+@model BeautyCenter.Models.Termini
+
+
+
+<form asp-action="DodadiKomentar" asp-route-id="@Model.IdTermin">
+     <input name="komentar" type="text" maxlength="100" />
+     <button type="submit" class="btn btn-secondary">Остави коментар</button>
+</form>

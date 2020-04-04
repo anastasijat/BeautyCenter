@@ -38,6 +38,12 @@ namespace BeautyCenter.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Registracija()
+        {
+            return View();
+        } 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -85,7 +91,42 @@ namespace BeautyCenter.Controllers
                 .Single();
             return View(usluga);
         }
+
+        public int randomId()
+        {
+            Random random = new Random();
+            return random.Next(10000);
+        }
+
+
+        [HttpPost]
+        public IActionResult Registracija(string imeIprezime, string email, string lozinka, string telBroj, string opshtina)
+        {
+            if (!appContext.Klienti.Any(k => k.EmailKlient.Equals(email)))
+            {
+                int id = randomId();
+                while (appContext.Klienti.Any(k => k.IdKlient.Equals(id)))
+                {
+                    id = randomId();
+                }
+                if (!appContext.Klienti.Any(k => k.IdKlient.Equals(id)))
+                {
+                    var opstinaO = appContext.Opshtini.Where(o => o.NazivOpshtina.Equals(opshtina)).Single();
+                    var klient = new Klienti { IdKlient = id, ImeKlient = imeIprezime, EmailKlient = email, PasswordKlient = lozinka, TelBrojKlient = telBroj, IdOpshtinaZhiveenje = opstinaO.IdOpshtina };
+                    appContext.Klienti.Add(klient);
+                    appContext.SaveChanges();
+                    return RedirectToAction("LoginUser", "Login");
+                }
+
+            }
+
+            return RedirectToAction("Registracija", "Home");
+
+
+
+        }
         //*****
-        
+
+
     }
 }

@@ -4,41 +4,46 @@
 }
 
 <h3>Искористени</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Име услуга
-                </th>
-                <th>
-                    Оддел
-                </th>
-                <th>
-                    Салон
-                </th>
-                <th>
-                    Датум
-                </th>
-            </tr>
-        </thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Име услуга
+            </th>
+            <th>
+                Оддел
+            </th>
+            <th>
+                Салон
+            </th>
+            <th>
+                Датум
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
         @foreach (var item in Model)
         {
-    <tr>
-        @if (item.Datum < DateTime.Now)
-        {
+            @if (item.Datum < DateTime.Now)
+            {
+        <tr>
             @if (item.IdUslugaNavigation != null)
             {
                 <td>
                     @item.IdUslugaNavigation.ImeUsluga
                 </td>
             }
-            @if(item.IdUslugaNavigation.IdOddelNavigation!=null)
+
+            @if (item.IdUslugaNavigation.IdOddelNavigation != null)
             {
                 <td>
                     @item.IdUslugaNavigation.IdOddelNavigation.ImeOddel
                 </td>
             }
-            @if(item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation!=null)
+
+            @if (item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation != null)
             {
                 <td>
                     @item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation.ImeSalon
@@ -47,7 +52,35 @@
             <td>
                 @item.Datum
             </td>
+            <td>
+                @if (item.Komentar == null)
+                {
+                    <form asp-controller="Klient" asp-action="DodadiKomentar" asp-route-id="@item.IdTermin" method="get">
+                        <input type="text" name="komentar"/>
+                        <input type="submit" value="Додади коментар" />
+                    </form>
+                }
+            </td>
+            
+
+        </tr>
+
+                
+                
+            }
+
+
+
         }
-    </tr>
-        }
-    </table>
+    </tbody>
+</table>
+        
+       
+  
+
+            
+            
+        
+
+
+    

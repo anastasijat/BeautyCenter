@@ -1,5 +1,6 @@
 ﻿using BeautyCenter.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,18 @@ namespace BeautyCenter.Controllers
             return View();
         }
 
+        public IActionResult Kursevi()
+        {
+            var kursevi = appContext.Direktor.Include(d => d.Saloni)
+                .ThenInclude(d => d.Odrzuva)
+                .ThenInclude(d => d.IdKursNavigation)
+                .Where(d => d.IdVrabotenDirektorNavigation.EmailVraboten.Equals(User.Identity.Name)).Single();
+            return View(kursevi);
+        }
+
         
+
+
+
     }
 }

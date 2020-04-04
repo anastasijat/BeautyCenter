@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/DirektorProfil.cshtml";
+}
+@model BeautyCenter.Models.Direktor
+
+<table class="table">
+
+    <tbody>
+        @if (Model.Saloni != null)
+        {
+            @foreach (var salon in Model.Saloni)
+            {
+                <tr>
+                    <td>
+                        Име салон: @salon.ImeSalon
+                    </td>
+                </tr>
+                @if (salon.Odrzuva != null)
+                {
+                    @foreach (var item in salon.Odrzuva)
+                    {
+                        @if (item.IdKursNavigation != null)
+                        {
+                            <tr>
+                                <td>
+                                    Име курс: @item.IdKursNavigation.ImeKurs
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                }
+            }
+        }
+
+    </tbody>
+
+</table>
