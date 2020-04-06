@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/DirektorProfil.cshtml";
+}
+<form asp-controller="Direktor" asp-action="DodadiKurs" method="post">
+    <fieldset>
+        <legend>Додади курс</legend>
+
+        <div class="form-group">
+            <label>Име курс</label>
+            <input type="text" class="form-control" name="ImeKurs">
+        </div>
+
+        <div class="form-group">
+            <label>Цена курс</label>
+            <input type="text" class="form-control" name="CenaKurs">
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Додади</button>
+    </fieldset>
+</form>

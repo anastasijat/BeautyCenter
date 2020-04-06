@@ -103,6 +103,7 @@ namespace BeautyCenter.Controllers
         [HttpPost]
         public IActionResult Registracija(string imeIprezime, string email, string lozinka, string telBroj, string opshtina)
         {
+           
             if (!appContext.Klienti.Any(k => k.EmailKlient.Equals(email)))
             {
                 int id = randomId();

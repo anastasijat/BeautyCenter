@@ -11,9 +11,17 @@
             @foreach (var salon in Model.Saloni)
             {
                 <tr>
-                    <td>
-                        Име салон: @salon.ImeSalon
-                    </td>
+                    <th>
+                        Салон: @salon.ImeSalon
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Курсеви
+                    </th>
+                    <th>
+                        Цена
+                    </th>
                 </tr>
                 @if (salon.Odrzuva != null)
                 {
@@ -23,9 +31,11 @@
                         {
                             <tr>
                                 <td>
-                                    Име курс: @item.IdKursNavigation.ImeKurs
+                                    @item.IdKursNavigation.ImeKurs
                                 </td>
-
+                                <td>
+                                    @item.IdKursNavigation.CenaKurs
+                                </td>
                             </tr>
                         }
                     }
@@ -36,3 +46,6 @@
     </tbody>
 
 </table>
+<form asp-action="NovKurs" asp-controller="Direktor">
+    <button type="submit" class="btn btn-secondary">Додади нов курс</button>
+</form>

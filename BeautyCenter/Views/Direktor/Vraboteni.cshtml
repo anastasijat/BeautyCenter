@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/DirektorProfil.cshtml";
+}
+
+@model IEnumerable<BeautyCenter.Models.Saloni>
+    <table class="table">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @item.ImeSalon
+                </th>
+            </tr>
+            @if (item.Vraboteni != null)
+            {
+                <tr>
+                    <th>
+                        Вработен
+                    </th>
+                </tr>
+
+                @foreach (var v in item.Vraboteni)
+                {
+                    <tr>
+                        <td>
+                            @v.ImeVraboten
+                        </td>
+                    </tr>
+                }
+
+            }
+        }
+       
+    </table>

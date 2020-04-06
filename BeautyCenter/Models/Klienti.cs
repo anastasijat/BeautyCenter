@@ -15,12 +15,12 @@ namespace BeautyCenter.Models
         }
 
         public int IdKlient { get; set; }
-        [Required]
+        
         public string ImeKlient { get; set; }
 
-        [Required] 
+       
         public string EmailKlient { get; set; }
-        [Required]
+        
         public string PasswordKlient { get; set; }
         public string TelBrojKlient { get; set; }
         public int? IdOpshtinaZhiveenje { get; set; }

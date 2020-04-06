@@ -12,21 +12,28 @@
 
         <div class="form-group">
             <label>Име и презиме</label>
-            <input type="text" class="form-control" name="imeIprezime">
+            <input type="text" class="form-control" name="imeIprezime" id="imeIprezime" data-val="true"
+                   data-val-required="Полето е задолжително">
+            <span class="field-validation-valid" data-valmsg-for="imeIprezime" data-valmsg-replace="true"></span>
 
         </div>
         <div class="form-group">
             <label>Email адреса</label>
-            <input type="email" class="form-control" name="email">
-
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                   data-val="true"
+                   data-val-required="Полето е задолжително"  data-val-email="Невалидна адреса"/>
+            <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
         </div>
         <div class="form-group">
             <label>Лозинка</label>
-            <input type="password" class="form-control" name="lozinka">
+            <input type="password" class="form-control" name="lozinka" id="lozinka" data-val="true"
+                   data-val-required="Полето е задолжително">
+            <span class="field-validation-valid" data-valmsg-for="lozinka" data-valmsg-replace="true"></span>
         </div>
         <div class="form-group">
             <label>Телефонски број</label>
-            <input type="text" class="form-control" name="telBroj">
+            <input type="text" class="form-control" name="telBroj" data-val="true" data-val-required="Полето е задолжително">
+            <span class="field-validation-valid" data-valmsg-for="telBroj" data-valmsg-replace="true"></span>
         </div>
 
         <fieldset class="form-group">
