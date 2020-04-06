@@ -83,7 +83,8 @@ namespace BeautyCenter.Controllers
             return View(omileni);
         }
 
-        public IActionResult Termini()
+        [Authorize(Roles = "Klienti")]
+        public IActionResult MoiTermini()
         {
             var termini = appContext.Termini
                 .Include(t => t.IdUslugaNavigation)
@@ -93,6 +94,8 @@ namespace BeautyCenter.Controllers
             return View(termini);
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Klienti")]
@@ -100,12 +103,52 @@ namespace BeautyCenter.Controllers
         {
 
             var klient = appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name)).Single();
+
             var omileniNew = new Omileni { IdKlient = klient.IdKlient, IdUsluga = id };
             appContext.Omileni.Add(omileniNew);
             appContext.SaveChanges();
             return View();
             // else da dopolnam !!!!
         }
+
+
+        [Authorize(Roles = "Klienti")]
+        public IActionResult Kursevi()
+        {
+            var kursevi = appContext.Kursevi.ToList();
+            return View(kursevi);
+
+        }
+
+        [Authorize(Roles = "Klienti")]
+        public IActionResult Kurs(int id)
+        {
+            var kurs = appContext.Kursevi
+                .Include(k => k.Odrzuva).ThenInclude(k => k.IdSalonNavigation)
+                .Include(k => k.Predava).ThenInclude(k => k.IdPredavacNavigation)
+                .Where(k => k.IdKurs == id).Single();
+            return View(kurs);
+        }
+
+        [Authorize(Roles = "Klienti")]
+        public IActionResult PrijavaZaKurs(int id)
+        {
+            var klient = appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name)).Single();
+            if (!appContext.Posetuva.Any(p => p.IdKlient == klient.IdKlient && p.IdKurs == id))
+            {
+                var posetuva = new Posetuva { IdKlient = klient.IdKlient, IdKurs = id };
+                appContext.Posetuva.Add(posetuva);
+                appContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData["Message"] = "Веќе се пријавивте на овој курс";
+                return View("Alert");
+            }
+
+        }
+
         //*****
 
 
@@ -117,19 +160,8 @@ namespace BeautyCenter.Controllers
 
 
 
-        //
 
 
 
-
-
-
-        /*public async Task<IActionResult> DodadiKomentar(int idTermin,string komentar)
-        {
-            
-           
-            
-        }*/
-       
     }
 }

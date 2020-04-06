@@ -41,7 +41,8 @@ namespace BeautyCenter.Controllers
         [HttpGet]
         public IActionResult Registracija()
         {
-            return View();
+            
+            return View(appContext.Opshtini.ToList());
         } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

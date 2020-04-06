@@ -55,10 +55,13 @@
             <td>
                 @if (item.Komentar == null)
                 {
-                    <form asp-controller="Klient" asp-action="DodadiKomentar" asp-route-id="@item.IdTermin" method="get">
-                        <input type="text" name="komentar"/>
-                        <input type="submit" value="Додади коментар" />
-                    </form>
+                <form >
+                    <div class="form-group">
+                        <textarea class="form-control" id="komentar" rows="3" name="komentar"></textarea>
+                        <input type="submit" value="Постави коментар" />
+                    </div>
+                </form>
+                    
                 }
             </td>
             

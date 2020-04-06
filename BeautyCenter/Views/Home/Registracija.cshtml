@@ -1,29 +1,48 @@
-﻿<form asp-controller="Home" asp-action="Registracija" method="post">
+﻿
+@model IEnumerable<BeautyCenter.Models.Opshtini>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+
+<form asp-controller="Home" asp-action="Registracija" method="post">
     <fieldset>
         <legend>Регистрација</legend>
 
         <div class="form-group">
-            <label for="exampleInputEmail1">Име и презиме</label>
-            <input type="text" class="form-control" name="imeIprezime" >
+            <label>Име и презиме</label>
+            <input type="text" class="form-control" name="imeIprezime">
 
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Email адреса</label>
-            <input type="email" class="form-control" name="email" >
+            <label>Email адреса</label>
+            <input type="email" class="form-control" name="email">
 
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Лозинка</label>
+            <label>Лозинка</label>
             <input type="password" class="form-control" name="lozinka">
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Телефонски број</label>
-            <input type="number" class="form-control" name="telBroj">
+            <label>Телефонски број</label>
+            <input type="text" class="form-control" name="telBroj">
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Општина</label>
-            <input type="text" class="form-control" name="opshtina">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <fieldset class="form-group">
+            <legend>Општина</legend>
+
+            @foreach (var item in Model)
+            {
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" name="opshtina" checked="" value="@item.NazivOpshtina">
+                        @item.NazivOpshtina
+                    </label>
+                </div>
+            }
+        </fieldset>
+
+        <button type="submit" class="btn btn-secondary">Регистрирај се</button>
     </fieldset>
 </form>

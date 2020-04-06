@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
+@model BeautyCenter.Models.Kursevi
+
+<h3>ИНФОРМАЦИИ</h3>
+
+<h4>Име на курс</h4>
+<p>@Model.ImeKurs</p>
+<br />
+<h4>Цена на курс</h4>
+<p>@Model.CenaKurs</p>
+
+@if (Model.Odrzuva != null)
+{
+    <h4>Салони во кои се одржува курсот: </h4>
+    @foreach(var item in Model.Odrzuva)
+    {
+        @if(item.IdSalonNavigation!=null)
+        {
+            <p>@item.IdSalonNavigation.ImeSalon</p>
+        }
+    }
+}
+<br />
+@if(Model.Predava!=null)
+{
+    <h4>Предавачи</h4>
+    @foreach(var item in Model.Predava)
+    {
+        @if(item.IdPredavacNavigation!=null)
+        {
+            <p>@item.IdPredavacNavigation.ImePredavac</p>
+        }
+    }
+}
+<form asp-controller="Klient" asp-action="PrijavaZaKurs" asp-route-id="@Model.IdKurs">
+    <button type="submit" class="btn btn-secondary">Пријави се</button>
+</form>

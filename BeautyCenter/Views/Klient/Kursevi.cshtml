@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BeautyCenter.Models.Kursevi>
+@{
+    Layout = "~/Views/Shared/ProfilKlient.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Курс</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Klient" asp-action="Kurs" asp-route-id="@item.IdKurs">@item.ImeKurs</a>
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
