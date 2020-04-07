@@ -97,18 +97,27 @@ namespace BeautyCenter.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Klienti")]
         public IActionResult DodadiOmilena(int id)
         {
 
             var klient = appContext.Klienti.Where(k => k.EmailKlient.Equals(User.Identity.Name)).Single();
 
-            var omileniNew = new Omileni { IdKlient = klient.IdKlient, IdUsluga = id };
-            appContext.Omileni.Add(omileniNew);
-            appContext.SaveChanges();
-            return View();
-            // else da dopolnam !!!!
+            if(!appContext.Omileni.Any(o=>o.IdKlient==klient.IdKlient && o.IdUsluga==id))
+            {
+                var omileniNew = new Omileni { IdKlient = klient.IdKlient, IdUsluga = id };
+                appContext.Omileni.Add(omileniNew);
+                appContext.SaveChanges();
+                return RedirectToAction("OmileniUslugi");
+            }
+            else
+            {
+                ViewData["Message"] = "Оваа услуга е веќе додадена";
+                return View("Alert");
+            }
+                
+            
+            
         }
 
 

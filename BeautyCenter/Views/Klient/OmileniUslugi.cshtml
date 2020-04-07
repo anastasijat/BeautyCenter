@@ -15,17 +15,28 @@
     <tbody>
         @foreach (var item in Model)
         {
+            @if (item.IdUslugaNavigation != null)
+            {
             <tr>
+            <td>
+                @item.IdUslugaNavigation.ImeUsluga
+            </td>
+            @if (item.IdUslugaNavigation.IdOddelNavigation != null)
+            {
                 <td>
-                        @item.IdUslugaNavigation.ImeUsluga
+                    @item.IdUslugaNavigation.IdOddelNavigation.ImeOddel
                 </td>
+            }
+            @if (item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation != null)
+            {
                 <td>
-                        @item.IdUslugaNavigation.IdOddelNavigation.ImeOddel
+                    @item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation.ImeSalon
                 </td>
-                <td>
-                        @item.IdUslugaNavigation.IdOddelNavigation.IdSalonNavigation.ImeSalon
-                </td>
-            </tr>
+            }
+
+        </tr>
+            }
+
         }
     </tbody>
 </table>
