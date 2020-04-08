@@ -114,6 +114,7 @@ namespace BeautyCenter.Controllers
                 if (!appContext.Klienti.Any(k => k.IdKlient.Equals(id)))
                 {
                     var opstinaO = appContext.Opshtini.Where(o => o.NazivOpshtina.Equals(opshtina)).Single();
+                    
                     var klient = new Klienti { IdKlient = id, ImeKlient = imeIprezime, EmailKlient = email, PasswordKlient = lozinka, TelBrojKlient = telBroj, IdOpshtinaZhiveenje = opstinaO.IdOpshtina };
                     appContext.Klienti.Add(klient);
                     appContext.SaveChanges();
